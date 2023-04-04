@@ -15,6 +15,13 @@ struct ContentView: View {
                 Spacer()
             }
             navbarCustom()
+            
+            VStack{
+                Spacer()
+                    .frame(height: 60)
+                cardStatus()
+                
+            }
 
         }
         
@@ -96,6 +103,58 @@ struct ShapeRectangle: Shape{
     }
     
     
+}
+
+struct cardStatus: View{
+    var body: some View{
+        HStack{
+            
+            VStack(spacing: 10){
+                Text("421")
+                    .font(.system(size: 25, weight: .bold))
+                Text("overdue")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color.gray)
+            }
+            
+            Spacer()
+            
+            VStack(spacing: 10){
+                Text("18")
+                    .font(.system(size: 25, weight: .bold))
+                Text("to do")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color.gray)
+            }
+            
+            Spacer()
+            
+            VStack(spacing: 10){
+                Text("72")
+                    .font(.system(size: 25, weight: .bold))
+                Text("open")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color.gray)
+            }
+            
+            Spacer()
+            
+            VStack(spacing: 10){
+                Text("51")
+                    .font(.system(size: 25, weight: .bold))
+                Text("due today")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color.gray)
+            }
+            
+        }
+        .padding(.horizontal, 30)
+        .padding(.vertical, 20)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20.0))
+        .shadow(color: Color.gray.opacity(0.3), radius: 15.0, x: 0, y:0)
+        .padding(.horizontal, 20)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
