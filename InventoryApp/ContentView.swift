@@ -20,7 +20,7 @@ struct ContentView: View {
                 Spacer()
                     .frame(height: 60)
                 cardStatus()
-                
+                sectionTitle()
             }
 
         }
@@ -153,6 +153,29 @@ struct cardStatus: View{
         .background(Color.white)
         .clipShape(RoundedRectangle(cornerRadius: 20.0))
         .shadow(color: Color.gray.opacity(0.3), radius: 15.0, x: 0, y:0)
+        .padding(.horizontal, 20)
+    }
+}
+
+struct sectionTitle: View{
+    var body: some View{
+        HStack{
+            Text("Due today")
+            
+            Spacer()
+            
+            HStack{
+                Text("Sort by")
+                Button {
+                    print("*")
+                } label: {
+                    Image(systemName: "slider.vertical.3")
+                }
+
+            }
+        }
+        .padding(.top, 20)
+        .foregroundColor(Color.black.opacity(0.6))
         .padding(.horizontal, 20)
     }
 }
