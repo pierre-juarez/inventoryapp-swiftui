@@ -9,11 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack{
+        ZStack(alignment: .top){
             VStack{
                 HeaderBackground()
                 Spacer()
             }
+            navbarCustom()
+
         }
         
     }
@@ -34,6 +36,38 @@ struct HeaderBackground: View{
             )
             .edgesIgnoringSafeArea(.top)
         
+    }
+}
+
+struct navbarCustom: View{
+    var body: some View{
+        VStack{
+            HStack{
+                Button {
+                    print("-")
+                } label: {
+                    Image(systemName: "line.3.horizontal")
+                        .font(.system(size: 25, weight: .bold))
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                
+                Spacer()
+                Text("Inventory Management")
+                    .font(.system(size: 20, weight: .bold))
+                Spacer()
+                
+                Button {
+                    print("+")
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 25, weight: .bold))
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                
+            }.foregroundColor(Color.white)
+        }
     }
 }
 
@@ -61,7 +95,7 @@ struct ShapeRectangle: Shape{
         return path
     }
     
-
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
