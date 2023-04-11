@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var inventories: [InventoryModel] = []
     var body: some View {
         ZStack(alignment: .top){
             VStack{
@@ -21,11 +22,93 @@ struct ContentView: View {
                     .frame(height: 60)
                 cardStatus()
                 sectionTitle()
+                
+                List(inventories){ inventory in
+                    VStack(alignment: .leading, spacing: 13){
+                        HStack{
+                            Image(systemName: inventory.icon)
+                            Text(inventory.type.rawValue.uppercased())
+                            Spacer()
+                            Circle()
+                                .fill(inventory.statusColor)
+                                .frame(width: 10, height: 10)
+                            Text(inventory.status)
+                        }.foregroundColor(Color.gray)
+                        
+                        HStack{
+                            Text(inventory.title)
+                                .font(.system(size: 16, weight: .bold))
+                        }
+                        
+                        HStack{
+                            Text("For").foregroundColor(Color.gray)
+                            Text(inventory.owner)
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 13, weight: .bold))
+                            Spacer()
+                            Text(inventory.time)
+                        }
+                        
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .overlay(
+                        HStack{
+                            Rectangle()
+                                .fill(inventory.cardColor)
+                                .padding(.vertical, -20)
+                                .frame(width: 5)
+                            Spacer()
+                        }.frame(maxWidth: .infinity)
+                    )
+                    .padding(.vertical, 20)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(color: Color.gray.opacity(0.2), radius: 15.0, x: 0, y:0)
+                    .padding(.vertical, 5)
+                    .listRowSeparator(.hidden)
+                }
+                .padding(.horizontal, 0)
+                .listStyle(.plain)
+                
             }
 
+        }.onAppear{
+//            inventories = InventoryModel.getInventory()
+            inventories = Array(repeating: InventoryModel.getInventory(), count: 20).flatMap{$0}
         }
         
     }
+}
+
+struct InventoryModel: Identifiable {
+    
+    let id = UUID()
+    let icon: String
+    let statusColor: Color
+    let type: ´Type´
+    let title: String
+    let status: String
+    let owner: String
+    let time: String
+    let cardColor: Color
+    
+    enum ´Type´: String {
+        case asset
+        case troubleshot
+    }
+    
+    static func getInventory() -> [Self]{
+        return [
+            InventoryModel(icon: "square.stack.3d.up.fill", statusColor: .cyan, type: .asset, title: "Request for a new Apple Macbook Pro", status: "OPEN", owner: "Pierre Juarez", time: "2m", cardColor: .cyan),
+            InventoryModel(icon: "questionmark.circle.fill", statusColor: .green, type: .troubleshot, title: "Macbook not shutting down propertly!", status: "IN PROGRESS", owner: "Susan Bradley", time: "1h", cardColor: .orange),
+            InventoryModel(icon: "square.stack.3d.up.fill", statusColor: .green, type: .troubleshot, title: "BENQ Monitor replacement request", status: "ACCEPTED", owner: "Nicholas Gilbert", time: "2d", cardColor: .blue),
+            InventoryModel(icon: "questionmark.circle.fill", statusColor: .green, type: .troubleshot, title: "WiFi connection drops and slow internet", status: "SOLVED", owner: "Mathias Rojas", time: "3y", cardColor: .green)
+        ]
+    }
+    
+    
 }
 
 struct HeaderBackground: View{
